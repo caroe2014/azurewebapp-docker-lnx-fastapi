@@ -1,52 +1,61 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
-#from fastapi.staticfiles import StaticFiles
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi import Security, Depends, FastAPI, HTTPException
+from fastapi.security.api_key import APIKeyQuery, APIKeyCookie, APIKeyHeader, APIKey
+from fastapi.openapi.docs import get_swagger_ui_html
+from fastapi.openapi.utils import get_openapi
 
-class Item(BaseModel):
-    name: str
-    description: str = None
-    price: float
-    tax: float = None
+from starlette.status import HTTP_403_FORBIDDEN, HTTP_200_OK
+from starlette.responses import RedirectResponse, JSONResponse, PlainTextResponse
 
-app = FastAPI()
+#from .routers import items, dynamicWorkspace
+from starlette.middleware.cors import CORSMiddleware
 
-origins = [
-    "http://localhost.tiangolo.com",
-    "https://localhost.tiangolo.com",
-    "http://localhost",
-    "http://localhost:8000",
-    "http://localhost:3000",
-     "http://localhost:5000",
-    ]
+from starlette.staticfiles import StaticFiles
+from starlette.exceptions import HTTPException as StarletteHTTPException
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
-user = [{"user": "adam", "job": "global security"},
-                 {"user": "Chris", "job": "Blesser of Images"},
-                 {"user": "John", "job": "Assistant"}]
-#app.mount("/static", StaticFiles(directory="static"), name="static")
+#from .security import API_KEY_NAME, COOKIE_DOMAIN, InitializeSecurity, check_FullAccess, check_WorkspaceAccess, get_client_access_type, AccessType
+#from .store import get_static_path
+# NOTE: Config the path to the permanent storage in config.py
+
+app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)
+# app = FastAPI()
+app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_credentials=True,  allow_methods=["*"],  allow_headers=["*"])
+
+STATIC_PATH = "/mnt/"
+# STATIC_PATH = "C:/users/v-edcaro/repros/python"
+print(STATIC_PATH)
+app.mount("/static", StaticFiles(directory=STATIC_PATH), name="static")
 
 @app.get("/")
-async def root():
-    return {"message": "Hello World"}
+async def redirect():
+    response = RedirectResponse(url='/static/json-tools/index.html')
+    return response
 
-#@app.get("/items/")
-#async def read_item(name: str):
-#    return fake_items_db[skip : skip + limit]
+@app.get("/static")
+async def redirect():
+    response = RedirectResponse(url='/static/index.html')
+    return response
 
+@app.get("/staticapp")
+async def redirect():
+    response = RedirectResponse(url='/static/app/index.html')
+    return response
+
+@app.get("/static2")
+async def redirect():
+    response = RedirectResponse(url='/static2/index.html')
+    return response
+
+@app.get("/static2app")
+async def redirect():
+    response = RedirectResponse(url='/static2/app/index.html')
+    return response
 
 @app.get("/users/")
 async def get_users():
-    return user
+   user =[{'user': 'Adam', 'job': 'Global Security'}, {'user': 'Ramya', 'job': 'Support Engineer'}, {'user': 'Edisom', 'job': 'Technical Advisor'}]
+   return user
 
-@app.post("/items/")
-async def create_item(item: Item):
-    return {"response": "http 200",
-             "message": "successful transaction"}
+@app.exception_handler(StarletteHTTPException)
+async def http_exception_handler(request, exc):
+    return PlainTextResponse(str(exc.detail), status_code=exc.status_code)

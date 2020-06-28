@@ -1,0 +1,8 @@
+{
+    "API_KEY_NAME" : "access_token",
+    "COOKIE_DOMAIN" : "esperback.com",
+    "API_KEYS" : {
+            "Worker1": "Workspace",
+            "GonzoDebug": "Full"
+        }
+}
