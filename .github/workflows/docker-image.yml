@@ -16,7 +16,5 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build the Docker image   
       run: docker build . --file Dockerfile --tag edwincaro10/python-fastapi:myfastapi
-    - name: Login to docker  
-      run: docker login edwincaro10   1Dv1vvdu!
     - name: Docker Push  
       run: docker push. --tag edwincaro10/python-fastapi:myfastapi   
