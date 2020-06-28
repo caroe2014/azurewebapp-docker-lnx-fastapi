@@ -1,0 +1,27 @@
+name: Docker Build and Push  CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Docker login
+      env:
+        DOCKER_USER: ${{ secrets.DOCKER_USER }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      run: docker login -u edwincaro10 -p 1Dv1vvdu! 
+       
+    - name: Build the Docker image   
+      run: docker build . --file Dockerfile --tag edwincaro10/python-fastapi:myfastapi
+      
+    - name: Docker Push  
+      run: docker push edwincaro10/python-fastapi:myfastapi   
