@@ -18,10 +18,10 @@ jobs:
       env:
         DOCKER_USER: ${{ secrets.DOCKER_USER }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      run: docker login -u edwincaro10 -p 1Dv1vvdu!  
-#    - name: Build the Docker image   
-#      run: docker build . --file Dockerfile --tag edwincaro10/python-fastapi:myfastapi
-#    Docker  Push 
- 
-#    - name: Docker Push  
-#      run: docker push edwincaro10/python-fastapi:myfastapi   
+      run: docker login -u edwincaro10 -p 1Dv1vvdu! 
+       
+    - name: Build the Docker image   
+      run: docker build . --file Dockerfile --tag edwincaro10/python-fastapi:myfastapi
+      
+    - name: Docker Push  
+      run: docker push edwincaro10/python-fastapi:myfastapi   
