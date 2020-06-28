@@ -28,7 +28,7 @@ app.mount("/static", StaticFiles(directory=STATIC_PATH), name="static2")
 
 @app.get("/")
 async def redirect():
-    response = RedirectResponse(url='/static/json-tools/index.html')
+    response = RedirectResponse(url='/static/index.html')
     return response
 
 @app.get("/static")
