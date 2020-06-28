@@ -1,4 +1,4 @@
-from fastapi import Security, Depends, FastAPI, HTTPException
+from fastapi import Security, Depends, FastAPI, HTTPException, Header
 from fastapi.security.api_key import APIKeyQuery, APIKeyCookie, APIKeyHeader, APIKey
 from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.openapi.utils import get_openapi
@@ -24,7 +24,7 @@ app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_credentials=True, 
 STATIC_PATH = "/mnt/"
 # STATIC_PATH = "C:/users/v-edcaro/repros/python"
 print(STATIC_PATH)
-app.mount("/static", StaticFiles(directory=STATIC_PATH), name="static")
+app.mount("/static", StaticFiles(directory=STATIC_PATH), name="static2")
 
 @app.get("/")
 async def redirect():

@@ -10,6 +10,7 @@ COPY ./app /app
 #     SSH - Begin Part #1
 #
 ENV SSH_PASSWD "root:Docker!"
+ENV SSH_PORT 2222
 
 #Install system dependencies
 RUN apt-get update \
@@ -46,7 +47,7 @@ RUN pip install -r ./requirements.txt
 #
 #     SSH - Begin Part #2
 #
-ENV SSH_PORT 2222
+
 EXPOSE 8081 2222
 #
 #     SSH - End Part #2
