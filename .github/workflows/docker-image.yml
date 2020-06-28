@@ -17,4 +17,4 @@ jobs:
     - name: Build the Docker image   
       run: docker build . --file Dockerfile --tag edwincaro10/python-fastapi:myfastapi
     - name: Docker Push  
-      run: docker push. --tag edwincaro10/python-fastapi:myfastapi   
+      run: docker push edwincaro10/python-fastapi:myfastapi   
