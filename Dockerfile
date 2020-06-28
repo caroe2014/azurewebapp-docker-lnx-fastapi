@@ -2,7 +2,6 @@ FROM tiangolo/uvicorn-gunicorn:python3.7
 
 LABEL maintainer="Sebastian Ramirez <tiangolo@gmail.com>"
 
-
 RUN /usr/local/bin/python -m pip install --upgrade pip
 RUN pip install --no-cache-dir fastapi
 COPY ./app /app

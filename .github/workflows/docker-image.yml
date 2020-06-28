@@ -14,10 +14,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Docker login
+    - name: Docker login  ${{ secrets.DOCKER_USER }} ${{ secrets.DOCKER_PASSWORD }}
       env:
-        DOCKER_USER: ${{ secrets.DOCKER_USER }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        DOCKER_USER: edwincaro10
+        DOCKER_PASSWORD: 1Dv1vvdu!
       run: docker login -u DOCKER_USER -p DOCKER_PASSWORD 
        
     - name: Build the Docker image   
