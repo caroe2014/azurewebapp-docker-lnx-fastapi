@@ -21,34 +21,19 @@ app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)
 # app = FastAPI()
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_credentials=True,  allow_methods=["*"],  allow_headers=["*"])
 
-STATIC_PATH = "/mnt/"
+STATIC_PATH = "/tmp/"
 # STATIC_PATH = "C:/users/v-edcaro/repros/python"
 print(STATIC_PATH)
-app.mount("/static", StaticFiles(directory=STATIC_PATH), name="static2")
+app.mount("/static", StaticFiles(directory=STATIC_PATH), name="static")
 
 @app.get("/")
 async def redirect():
-    response = RedirectResponse(url='/static/index.html')
+    response = RedirectResponse(url='/static/json-tools/index.html')
     return response
 
 @app.get("/static")
 async def redirect():
-    response = RedirectResponse(url='/static/index.html')
-    return response
-
-@app.get("/staticapp")
-async def redirect():
-    response = RedirectResponse(url='/static/app/index.html')
-    return response
-
-@app.get("/static2")
-async def redirect():
-    response = RedirectResponse(url='/static2/index.html')
-    return response
-
-@app.get("/static2app")
-async def redirect():
-    response = RedirectResponse(url='/static2/app/index.html')
+    response = RedirectResponse(url='/static/json-tools/index.html')
     return response
 
 @app.get("/users/")
